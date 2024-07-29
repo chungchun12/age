@@ -12,31 +12,46 @@
             align-items: center;
             height: 100vh;
             margin: 0;
-            background-color: #f0f0f0;
+            background-color: #e6e6fa; /* 연보라색 파스텔 톤 */
+            padding: 10px;
+            box-sizing: border-box;
         }
         .container {
             background: #fff;
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        h1 {
+            font-size: 1.5em;
+            margin-bottom: 20px;
+            text-align: center;
         }
         label {
             display: block;
             margin-bottom: 8px;
+            font-size: 1em;
         }
         input {
             width: 100%;
-            padding: 8px;
+            padding: 10px;
             margin-bottom: 16px;
             border: 1px solid #ccc;
             border-radius: 4px;
+            font-size: 1em;
+            box-sizing: border-box;
         }
         button {
-            padding: 10px 15px;
+            width: 100%;
+            padding: 10px;
             background-color: #007bff;
             border: none;
             color: #fff;
             border-radius: 4px;
+            font-size: 1em;
             cursor: pointer;
         }
         button:hover {
@@ -45,6 +60,22 @@
         .result {
             margin-top: 16px;
             font-size: 1.2em;
+            text-align: center;
+        }
+        .current-datetime {
+            margin-top: 8px;
+            font-size: 1em;
+            text-align: center;
+            color: #666;
+        }
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 1.2em;
+            }
+            button {
+                font-size: 0.9em;
+                padding: 8px;
+            }
         }
     </style>
 </head>
@@ -55,12 +86,14 @@
         <input type="date" id="birthdate">
         <button onclick="calculateAge()">계산하기</button>
         <div class="result" id="result"></div>
+        <div class="current-datetime" id="current-datetime"></div>
     </div>
 
     <script>
         function calculateAge() {
             const birthdateInput = document.getElementById('birthdate').value;
             const resultDiv = document.getElementById('result');
+            const currentDatetimeDiv = document.getElementById('current-datetime');
 
             if (!birthdateInput) {
                 resultDiv.textContent = '생년월일을 입력해주세요.';
@@ -78,6 +111,10 @@
             }
 
             resultDiv.textContent = `만 나이: ${age}세`;
+
+            const options = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit', second: '2-digit' };
+            const currentDatetime = new Intl.DateTimeFormat('ko-KR', options).format(today);
+            currentDatetimeDiv.textContent = `현재 시간: ${currentDatetime}`;
         }
     </script>
 </body>
